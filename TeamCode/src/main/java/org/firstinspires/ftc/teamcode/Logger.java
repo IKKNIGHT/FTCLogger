@@ -28,8 +28,17 @@ public class Logger {
         }
     }
     static SimpleLogger simpleLogger;
+    /**
+     * creates a new Logger instance using a simple logger instance.
+     */
     public Logger(SimpleLogger simpleLogger){
         Logger.simpleLogger = simpleLogger; // inject the simple logger
+    }
+    /**
+     * Creates a new Logger instance and a new Simplelogger instance at the same time.
+     */
+    public Logger(){
+        Logger.simpleLogger = new SimpleLogger(); // inject the simple logger
     }
     public void log(String path,Object value){
         simpleLogger.log(path,value);
