@@ -1,4 +1,3 @@
-// Copyright 2024 Patrick R. Michaud
 
 package org.firstinspires.ftc.teamcode;
 
@@ -13,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class SimpleLogger {
     // Timer to track elapsed time since logging started
     private final ElapsedTime logTime = new ElapsedTime();
     // Base directory for logs
-    private final String baseLogDir = "/sdcard/FIRST/java/src/Datalogs/";
+    private final String baseLogDir = "/sdcard/FIRST/java/src/Datalogs/"+new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime())+"/";
 
     /**
      * Constructor sets up the OpMode lifecycle listener.
