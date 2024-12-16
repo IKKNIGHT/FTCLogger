@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * simple wrapper class for SimpleLogger with extra features.
  */
@@ -22,9 +27,9 @@ public class Logger {
             return value;
         }
     }
-    SimpleLogger simpleLogger;
+    static SimpleLogger simpleLogger;
     public Logger(SimpleLogger simpleLogger){
-        this.simpleLogger = simpleLogger; // inject the simple logger
+        Logger.simpleLogger = simpleLogger; // inject the simple logger
     }
     public void log(String path,Object value){
         simpleLogger.log(path,value);
@@ -33,6 +38,15 @@ public class Logger {
         log(path,faultType.getValue()+fault); // we just have a log that shows a fault type ex:`ERROR : err`
     }
     public void closeLogs(){simpleLogger.closeLogs();}
+    public static void printLogFile(String path) throws IOException, IOException {
+        File logFile = new File(path+simpleLogger.getBaseLogDir());
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        }
+    }
     public SimpleLogger getSimpleLogger(){return simpleLogger;} // so user can drop to lower level library
 
 }

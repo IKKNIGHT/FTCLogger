@@ -92,6 +92,8 @@ public class SimpleLogger {
         writers.clear();
     }
 
+    public String getBaseLogDir(){return baseLogDir;}
+
     /**
      * Listener for OpMode lifecycle events to ensure log files are properly closed.
      */
