@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,7 +13,8 @@ import java.io.IOException;
 /**
  * simple wrapper class for SimpleLogger with extra features.
  */
-public class Logger {
+@Disabled
+public class Logger extends LinearOpMode {
     public enum FaultTypes{
         INFO("INFO : "),
         WARNING("WARNING : "),
@@ -40,6 +45,12 @@ public class Logger {
     public Logger(){
         Logger.simpleLogger = new SimpleLogger(); // inject the simple logger
     }
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        // No, Don't even think about it.
+    }
+
     public void log(String path,Object value){
         simpleLogger.log(path,value);
     }
@@ -56,6 +67,20 @@ public class Logger {
             }
         }
     }
+    /**
+     * This changes the <strong>BASE</strong> hardware directory, it is recommended to not change this, but it might be necessary when logging into a USB, or a custom hardware path The default BaseHardwareDirectory is <code>/sdcard/FIRST/java/src/Datalogs/</code> It is recommended to stay in this format. Please <strong>DO NOT CHANGE THIS</strong> during runtime, change the path before logging any instances ex:<code>logger.log("Robot","Robot Init");</code>
+     */
+    public void setBaseHardwareDirectory(String baseHardwareDirectory) throws RuntimeException{
+        if(opModeIsActive()){
+            // so none of you bums try changing this while code running
+            throw new RuntimeException("Set the Base Hardware Directory to something else while opModeIsActive, do this before opmode is active to avoid bugs.");
+        }else{
+            simpleLogger.hardwareLogDir = baseHardwareDirectory;
+        }
+    }
+    public String getBaseHardwareDirectory(){return simpleLogger.hardwareLogDir;}
+    /**
+     * This returns <code>SimpleLogger</code> which could be treated as a lower level definition of the <code>Logger</code> class
+     */
     public SimpleLogger getSimpleLogger(){return simpleLogger;} // so user can drop to lower level library
-
 }

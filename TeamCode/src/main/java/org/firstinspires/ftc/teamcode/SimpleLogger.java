@@ -22,8 +22,11 @@ public class SimpleLogger {
     private final Map<String, BufferedWriter> writers = new HashMap<>();
     // Timer to track elapsed time since logging started
     private final ElapsedTime logTime = new ElapsedTime();
+
+    public String hardwareLogDir = "/sdcard/FIRST/java/src/Datalogs/";
+
     // Base directory for logs
-    private final String baseLogDir = "/sdcard/FIRST/java/src/Datalogs/"+new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime())+"/";
+    private final String baseLogDir = hardwareLogDir+new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime())+"/";
 
     /**
      * Constructor sets up the OpMode lifecycle listener.
